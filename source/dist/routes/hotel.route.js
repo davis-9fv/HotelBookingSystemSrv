@@ -1,7 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", {value: true});
+Object.defineProperty(exports, "__esModule", { value: true });
 const hotel_model_1 = require("../models/hotel.model");
-
 module.exports = (passport, router) => {
     router.post('/insert', (req, res, next) => {
         var name = req.body.name;
@@ -22,8 +21,7 @@ module.exports = (passport, router) => {
         hotel.save();
         return res.status(200).send('Hotel registered successfully');
     });
-
-    router.post('/find', (req, res, next) => {
+    router.get('/find', (req, res, next) => {
         hotel_model_1.Hotel.find({}, (err, hotels) => {
             if (err)
                 throw res.status(500).send(err);
@@ -35,7 +33,7 @@ module.exports = (passport, router) => {
     });
     router.post('/findById', (req, res, next) => {
         var hotelId = res.body.hotelId;
-        hotel_model_1.Hotel.find({_id: hotelId}, (err, hotel) => {
+        hotel_model_1.Hotel.find({ _id: hotelId }, (err, hotel) => {
             if (err)
                 throw res.status(500).send(err);
             ;
@@ -53,7 +51,7 @@ module.exports = (passport, router) => {
         var email = req.body.email;
         var numberRooms = req.body.numberRooms;
         console.log(req.body);
-        hotel_model_1.Hotel.findOneAndUpdate({_id: hotelId}, {
+        hotel_model_1.Hotel.findOneAndUpdate({ _id: hotelId }, {
             $set: {
                 name: name,
                 address: address,
@@ -63,7 +61,7 @@ module.exports = (passport, router) => {
                 numberRooms: numberRooms,
                 __v: 0
             }
-        }, {upsert: true, new: true}, (err, obj) => {
+        }, { upsert: true, new: true }, (err, obj) => {
             if (err)
                 throw res.status(500).send(err);
             ;

@@ -14,6 +14,12 @@ var app = express();
 app.set('dbUrl', dbUrl);
 mongoose.connect(dbUrl);
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use(bodyParser.urlencoded({'extended': true}));
 app.use(cookieParser());
 
@@ -47,6 +53,12 @@ app.use(passport.session());
 app.use('/rest/user', require('./routes/user.route')(passport, express.Router()));
 app.use('/rest/hotel', require('./routes/hotel.route')(passport, express.Router()));
 
+
+
+
+
+
 app.listen(5000, () => {
     console.log('The server is running');
 })
+

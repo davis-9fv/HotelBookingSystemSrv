@@ -25,7 +25,7 @@ module.exports = (passport, router) => {
     });
 
 
-    router.post('/find', (req, res, next) => {
+    router.get('/find', (req, res, next) => {
         Hotel.find({}, (err, hotels) => {
             if (err) throw res.status(500).send(err);
             ;
