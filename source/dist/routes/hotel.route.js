@@ -19,7 +19,7 @@ module.exports = (passport, router) => {
             numberRooms: numberRooms
         });
         hotel.save();
-        return res.status(200).send('Hotel registered successfully');
+        return res.status(200).send(hotel);
     });
     router.get('/find', (req, res, next) => {
         hotel_model_1.Hotel.find({}, (err, hotels) => {
@@ -50,6 +50,7 @@ module.exports = (passport, router) => {
         var phoneNumber = req.body.phoneNumber;
         var email = req.body.email;
         var numberRooms = req.body.numberRooms;
+        console.log("----UPDATE----");
         console.log(req.body);
         hotel_model_1.Hotel.findOneAndUpdate({ _id: hotelId }, {
             $set: {
@@ -64,7 +65,6 @@ module.exports = (passport, router) => {
         }, { upsert: true, new: true }, (err, obj) => {
             if (err)
                 throw res.status(500).send(err);
-            ;
             // object of all the users
             console.log(obj);
             return res.status(200).send(obj);
