@@ -22,12 +22,12 @@ module.exports = (passport, router) => {
         passport.authenticate('login', (error, user) => {
             console.log("user.route.ts: login:" + user)
             if (error) {
-                console.log("Error:" + error)
+                console.log("user.route.ts: login: Error:" + error)
                 res.status(500).send('ERROR');
             } else {
                 req.logIn(user, (error) => {
                     if (error) {
-                        console.log("Error::" + error)
+                        console.log("user.route.ts: login: Error:" + error)
                         return res.status(500).send('Request login failed');
                     } else {
                         console.log("Free to pass")

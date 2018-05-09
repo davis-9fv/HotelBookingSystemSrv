@@ -14,7 +14,7 @@ var app = express();
 app.set('dbUrl', dbUrl);
 mongoose.connect(dbUrl);
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -32,6 +32,9 @@ passport.deserializeUser((user, done) => {
 });
 
 passport.use('login', new LocalStrategy.Strategy((username, password, done) => {
+    console.log(username)
+    console.log(password)
+
     User.findOne({username: username}, (err, temp_user) => {
         if (err) {
             return done(err);
@@ -42,6 +45,7 @@ passport.use('login', new LocalStrategy.Strategy((username, password, done) => {
         temp_user.comparePassword(password, (err, isMatch) => {
             if (err) throw err;
         });
+        console.log("compare password done");
         return done(null, temp_user);
     });
 }));
@@ -52,10 +56,6 @@ app.use(passport.session());
 
 app.use('/rest/user', require('./routes/user.route')(passport, express.Router()));
 app.use('/rest/hotel', require('./routes/hotel.route')(passport, express.Router()));
-
-
-
-
 
 
 app.listen(5000, () => {
